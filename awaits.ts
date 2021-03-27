@@ -19,7 +19,9 @@ type Iiterable = { [K in string | number]: any }
  * @return a tuple of type [Error, null]
  */
 const handleErr: IhandleErr = function handleErr(err: any = ''): [Error, null] {
-	return err instanceof Error ? [err, null] : [new Error(err), null];
+	return typeof err === 'object' &&
+		err.constructor.prototype.name === Error.prototype.name?
+		[err, null] : [new Error(err), null];
 }
 
 /**
